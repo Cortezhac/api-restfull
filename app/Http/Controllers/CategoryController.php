@@ -44,4 +44,10 @@ class CategoryController extends Controller
         }
         return response()->json(['message' => 'data already updated'], 200);
     }
+
+    public function delete($id){
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return new CategoryResource($category);
+    }
 }

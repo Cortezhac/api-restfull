@@ -23,3 +23,4 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{category}', [CategoryController::class, 'show']);
 Route::post('/categories/create', [CategoryController::class, 'store']);
 Route::put('/categories/update/{category}', [CategoryController::class, 'update']);
+Route::delete('/categories/delete/{id}', [CategoryController::class, 'delete']);
