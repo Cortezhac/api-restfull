@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Authentication\RegisterUserController;
 use App\Http\Controllers\CategoryController;
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/categories/create', [CategoryController::class, 'store']);
     Route::put('/categories/update/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/delete/{id}', [CategoryController::class, 'delete']);
+
+    Route::get('/users/me', [UserController::class, 'me']);
 });
 
 Route::post('/auth/register', [RegisterUserController::class, 'register']);

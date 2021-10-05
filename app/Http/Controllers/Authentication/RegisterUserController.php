@@ -19,6 +19,7 @@ class RegisterUserController extends Controller
         $user['name'] = $request->name;
         $user['email'] = $request->email;
         $user['password'] = bcrypt($request->password);
+        $user['type_user'] = 'client';
         User::create($user);
         return response()->json( ['message'=> 'User created'] ,201);
     }
