@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class CheckScoope
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        if (!$request->user()->tokenCan('server:admin')) {
+            abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized');
+        }
+        return $next($request);
+    }
+}

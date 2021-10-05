@@ -20,12 +20,20 @@ class AuthController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
-            $token = $user->createToken('LaravelSanctumAuth')->plainTextToken;
+            $token = $this->setScopesUser($user);
             return response()->json([
                 'message' => 'user logged!',
                 'token' => $token
             ], 200);
         }
         return response()->json(['message' => 'Invalid user or password'], 401);
+    }
+
+
+    public function setScopesUser($loggedUser){
+        if($loggedUser->type_user == 'admin'){
+            return $loggedUser->createToken('LaravelSanctumAuth', ['server:admin'])->plainTextToken; 
+        }
+        return $loggedUser->createToken('LaravelSanctumAuth', ['server:client'])->plainTextToken;
     }
 }

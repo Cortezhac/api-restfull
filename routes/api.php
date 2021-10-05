@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Authentication\RegisterUserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\CheckScoope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::put('/categories/update/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/delete/{id}', [CategoryController::class, 'delete']);
 
-    Route::get('/users/me', [UserController::class, 'me']);
+    Route::get('/users/me', [UserController::class, 'me'])->middleware('scoope');
 });
 
 Route::post('/auth/register', [RegisterUserController::class, 'register']);
